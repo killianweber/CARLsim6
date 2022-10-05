@@ -21,6 +21,7 @@ jobs:
             cuda_os: "ubuntu2004"
             cuda: "11.6.2"
             cuda_alt: "11-6"
+            cuda_path: "11.6"
             cuda_version_num: "510.47.03-1"
             gcc: 10
         #  - os: ubuntu-20.04
@@ -48,15 +49,18 @@ jobs:
         sudo mv cuda-${{ matrix.cuda_os }}.pin /etc/apt/preferences.d/cuda-repository-pin-600
         wget https://developer.download.nvidia.com/compute/cuda/${{ matrix.cuda }}/local_installers/cuda-repo-${{ matrix.cuda_os }}-${{ matrix.cuda_alt  }}-local_${{ matrix.cuda }}-${{ matrix.cuda_version_num }}_amd64.deb
         sudo dpkg -i cuda-repo-${{ matrix.cuda_os }}-${{ matrix.cuda_alt  }}-local_${{ matrix.cuda }}-${{ matrix.cuda_version_num }}_amd64.deb
-        sudo apt-key add /var/cuda-repo-${{ matrix.cuda_os }}-${{ matrix.cuda_alt  }}-local/7fa2af80.pub
+        sudo apt-key add /var/cuda-repo-${{ matrix.cuda_os }}-${{ matrix.cuda_alt }}-local/7fa2af80.pub
         sudo apt-get update
         sudo apt-get -y install cuda
+        export PATH=/usr/local/cuda-${{ matrix.cuda_path }}/bin${PATH:+:${PATH}}
+        sudo restart
+        
     
-    - name: Install CUDA Samples
-      run: |
-        git clone https://github.com/NVIDIA/cuda-samples.git
-        cd cuda-samples
-        make
+  #  - name: Install CUDA Samples
+  #    run: |
+  #      git clone https://github.com/NVIDIA/cuda-samples.git
+  #      cd cuda-samples
+  #      make
     
     # Specify the correct host compilers
     - name: Install/Select gcc and g++ 
