@@ -53,9 +53,11 @@ jobs:
         sudo apt-get -y install cuda
     
     - name: Install CUDA Samples
+      run: |
         git clone https://github.com/NVIDIA/cuda-samples.git
         cd cuda-samples
         make
+    
     # Specify the correct host compilers
     - name: Install/Select gcc and g++ 
       run: |
