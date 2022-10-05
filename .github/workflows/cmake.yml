@@ -3,7 +3,7 @@ name: CMake
 on: [push]
 
 env:
-  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.) 
   build_dir: "build"
   config: "Release"
 
