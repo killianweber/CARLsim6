@@ -46,6 +46,10 @@ jobs:
       # We'll use this as our working directory for all subsequent commands
       run: cmake -E make_directory ${{github.workspace}}/build
       
+    - name: Install Python3
+      run: |
+        sudo apt install --reinstall python3
+      
     - name: Install CUDA
       run: |
         cd
